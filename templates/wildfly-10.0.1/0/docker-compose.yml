@@ -6,7 +6,7 @@ services:
     hostname: fbcc-appserver
     ports: 
       - "2201:22"
-      - "${FBCCJ_PORT}:8080"
+      - "${FBCC_PORT}:8080"
       - "8180:8180"
       - "8280:8280"
       - "8443:8443"
@@ -17,8 +17,7 @@ services:
       - "4448:4448"
     environment:
       - FBCC_HOSTNAME=${FBCC_HOSTNAME}
-      - FBCCJ_PORT=${FBCCJ_PORT}
-#      - DB_PORT=1521
+      - FBCC_PORT=${FBCC_PORT}
 #      - DB_SID=TIPLUS2
 #      - DB_HOSTNAME=${TI_HOSTNAME}
 #      - DB_GLOBAL_SCHEMA=TIGLOBAL
