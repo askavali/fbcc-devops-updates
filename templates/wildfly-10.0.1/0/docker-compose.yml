@@ -18,6 +18,10 @@ services:
     environment:
       - FBCC_HOSTNAME=${FBCC_HOSTNAME}
       - FBCC_PORT=${FBCC_PORT}
+<<<<<<< HEAD
+=======
+#      - DB_PORT=1521
+>>>>>>> 6f2ffc56f8e8aa9479dc81bc962efeea82053d42
 #      - DB_SID=TIPLUS2
 #      - DB_HOSTNAME=${TI_HOSTNAME}
 #      - DB_GLOBAL_SCHEMA=TIGLOBAL
