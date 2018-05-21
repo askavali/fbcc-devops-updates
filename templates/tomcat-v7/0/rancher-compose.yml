@@ -1,6 +1,6 @@
 version: '2'
 catalog:
-  name: Payments and Messaging
+  name: FBCC
   version: 1.0
   description: |
     TOMCAT 7 | JDK 1.8 | Oracle

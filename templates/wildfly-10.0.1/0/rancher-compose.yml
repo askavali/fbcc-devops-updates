@@ -1,39 +1,94 @@
 version: '2'
 catalog:
-  name: FBCC-wildfly-10.0.1
+  name: FBCC
   version: 1.0
   description: |
-    FBCC-wildfly-10.0.1
-#  questions:
-#
-#    - variable: TI_HOSTNAME
-#      label: TI_HOSTNAME
+    WILDFLY 10.0.1 | JDK 1.8 | Oracle
+  questions:
+
+#    - variable: DB_HOST
+#      label: DB_HOST
 #      description: |
-#        TI_HOSTNAME
+#        DB_HOST
 #      required: true
-#      default: whale.finastra.io
+#      default: gtb-db.finastra.io
 #      type: string
-#
-#    - variable: DB_MAINTAIN_OPTION
-#      label: DB_MAINTAIN_OPTION
+
+#    - variable: DB_SID
+#      label: DB_SID
 #      description: |
-#        DB_MAINTAIN_OPTION
+#        DB_SID
+#      required: true
+#      default: TIPLUS2
+#      type: string
+
+#    - variable: DB_MSCHEMA
+#      label: DB_MSCHEMA
+#      description: |
+#        DB_MSCHEMA
+#      required: true
+#      default: MPMDOCKER_TESTM
+#      type: string
+
+#    - variable: DB_ASCHEMA
+#      label: DB_ASCHEMA
+#      description: |
+#        DB_ASCHEMA
+#      required: true
+#      default: MPMDOCKER_TESTA
+#      type: string
+
+#    - variable: DB_USER
+#      label: DB_USER
+#      description: |
+#        DB_USER
+#      required: true
+#      default: sys
+#      type: string
+
+#    - variable: DB_PASSWORD
+#      label: DB_PASSWORD
+#      description: |
+#        DB_PASSWORD
+#      required: true
+#      default: Oracle123
+#      type: password
+
+#    - variable: ORADATA_PATH
+#      label: ORADATA_PATH
+#      description: |
+#        ORADATA_PATH
+#      required: true
+#      default: C:/app/Administrator/oradata
+#      type: string
+
+#    - variable: DB_INIT
+#      label: DB_INIT
+#      description: |
+#        DB_INIT
 #      required: true
 #      default: none
 #      type: enum
 #      options:
-#        - none
-#        - update
-#        - init
-#
-#    - variable: DB_TAG
-#      label: DB_TAG
+#        - true
+#        - false
+
+#    - variable: ELS_HCARE
+#      label: ELS_HCARE
 #      description: |
-#        DB_TAG
+#        ELS_HCARE
 #      required: true
-#      default: standalone-2.8.0
+#      default: FBPM-HighCareA
 #      type: string
-#
+
+#    - variable: ELS_HVOL
+#      label: ELS_HVOL
+#      description: |
+#        ELS_HVOL
+#      required: true
+#      default: FBPM-HighVolumeA
+#      type: string
+
     - variable: FBCC_PORT
       label: FBCC_PORT
       description: |
@@ -41,8 +96,19 @@ catalog:
       required: true
       default: fbcc
       type: string
-<<<<<<< HEAD
-=======
 
+#    - variable: BIN_URL
+#      label: BIN_URL
+#      description: |
+#        BIN_URL
+#      required: true
+#      default: https://wailord.finastra.io/was-binaries/fbpm-6.0.1.1.73340.zip
+#      type: string
 
->>>>>>> 6f2ffc56f8e8aa9479dc81bc962efeea82053d42
+    - variable: FBCC_HOST
+      label: FBCC_HOST
+      description: |
+        FBCC_HOST
+      required: true
+      default: BLRCSLFBCC0044.misys.global.ad
+      type: string
