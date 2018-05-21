@@ -34,18 +34,12 @@ catalog:
 #      default: standalone-2.8.0
 #      type: string
 #
-#    - variable: FBTI_BINARY
-#      label: FBTI_BINARY
-#      description: |
-#        FBTI_BINARY
-#      required: true
-#      default: https://wailord.finastra.io/ti/FBTI-2.8.0.zip
-#      type: string
-    - variable: FBCCJ_PORT
-      label: FBCCJ_PORT
+    - variable: FBCC_PORT
+      label: FBCC_PORT
       description: |
-        FBCCJ_PORT
+        FBCC_PORT
       required: true
-      default: fbccj
+      default: fbcc
       type: string
+
 
