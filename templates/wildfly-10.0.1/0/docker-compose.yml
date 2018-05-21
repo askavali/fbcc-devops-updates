@@ -1,0 +1,113 @@
+version: "2"
+services:
+  fbcc-appserver:
+    image: registry.misys.global.ad/askavali/wildfly-10.1.0:latest
+    container_name: fbcc-appserver
+    hostname: fbcc-appserver
+    ports: 
+      - "2201:22"
+      - "${FBCCJ_PORT}:8080"
+      - "8180:8180"
+      - "8280:8280"
+      - "8443:8443"
+      - "8543:8543"
+      - "8643:8643"
+      - "9990:9990"
+      - "9999:9999"
+      - "4448:4448"
+    environment:
+      - FBCC_HOSTNAME=${FBCC_HOSTNAME}
+      - FBCCJ_PORT=${FBCCJ_PORT}
+#      - DB_PORT=1521
+#      - DB_SID=TIPLUS2
+#      - DB_HOSTNAME=${TI_HOSTNAME}
+#      - DB_GLOBAL_SCHEMA=TIGLOBAL
+#      - DB_ZONE_SCHEMA=TIZONE1
+#      - JBOSS_ADMIN_USER=jbossadmin
+#      - JBOSS_ADMIN_PASS=jboss@123
+#      - MQ_VENDOR=ibmmq-7.5
+#    volumes:
+#      - /opt/workspace/shared:/workspace/shared
+#      - /opt/workspace/fbti-logs/jboss-6.4-global:/opt/jboss-eap-6.4/domains/tiplus2/servers/global-server/log
+#      - /opt/workspace/fbti-logs/jboss-6.4-zone:/opt/jboss-eap-6.4/domains/tiplus2/servers/ti1-server/log
+#    extra_hosts:
+#      - "elsd-1-1315:10.240.181.35"
+#    links:
+#      - "fbti-ibmmq:fbti-ibmmq"
+#    depends_on:
+#      - fbti-ibmmq
+#      - fbti-oracle12c
+    networks:
+       - default
+    restart: always
+    labels:
+      wildfly-10.1.0:host_label: host=${FBCC_HOSTNAME}
+      
+#  fbti-ibmmq:
+#    image: wailord.finastra.io:444/fbti/generic:ibmmq7_5
+#    container_name: fbti-ibmmq
+#    hostname: fbti-ibmmq
+#    ports: 
+#      - "2203:22"
+#      - "1414:1414"
+#    environment:
+#      - MQ_QMGR_NAME=TIMQMGR
+#      - MQ_QUEUE_LIST=TI.GWY.IN,TI.GWY.OUT,TI.OUTGOING.REPLY,TI.MT798.IN,TI.MT798.OUT,TI.MT798.OUTGOING.REPLY,TI.SWIFT.IN,TI.SWIFT.OUT,TI.FAB.INCOMING,TI.FAB.OUTGOING,TILIQ.TI.OUTGOING,TILIQ.TI.OUTGOING.REPLY,TIRISK.TI.INCOMING,TIRISK.TI.OUTGOING,TIRISK.TI.OUTGOING.REPLY,TIPLUS2.BO.REPLY,TIPLUS2.BO.ENQUIRY,TIPLUS2.BO.TRANSFER,TIPLUS2.BO.REPLICATION,apollo.in,apollo.outgoing,apollo.to.tiplus.request
+#    networks:
+#       - default
+#    restart: always
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host=${TI_HOSTNAME}
+#
+#  fbti-builder:
+#    image: wailord.finastra.io:444/tipat/jboss-6.4-earbuilder:latest
+#    container_name: fbti-builder
+#    environment:
+#      - TI_HOSTNAME=${TI_HOSTNAME}
+#      - DB_TYPE=oracle
+#      - DB_PORT=1521
+#      - DB_SID=TIPLUS2
+#      - DB_HOSTNAME=${TI_HOSTNAME}
+#      - DB_GLOBAL_SCHEMA=TIGLOBAL
+#      - DB_ZONE_SCHEMA=TIZONE1
+#      - JBOSS_ADMIN_USER=jbossadmin
+#      - JBOSS_ADMIN_PASS=jboss@123
+#      - DB_MAINTAIN_OPTION=${DB_MAINTAIN_OPTION}
+#      - APPSERVER_TYPE=jboss-6.4
+#      - IS_DB_EXTERNAL_OPTION=true
+#      - APPSERVER_OPTION=init
+#      - MQ_VENDOR=ibmmq-7.5
+#      - FBTI_BINARY=${FBTI_BINARY}
+#    volumes:
+#      - /opt/workspace/shared:/workspace/shared
+#    links:
+#      - "fbti-appserver:fbti-appserver"
+#    extra_hosts:
+#      - "elsd-1-1315:10.240.181.35"
+#    depends_on:
+#      - fbti-oracle12c
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host=${TI_HOSTNAME}
+#      io.rancher.container.start_once: true
+
+#  fbti-oracle12c:
+#    image: wailord.finastra.io:444/oracle/fbti:${DB_TAG}
+#    container_name: fbti-oracle12c
+#    hostname: fbti-oracle12c
+#    ports:
+#      - 1521:1521
+#      - 5500:5500
+#    environment:
+#      - ORACLE_SID=TIPLUS2
+#      - ORACLE_PWD=oracle
+#      - ORACLE_CHARACTERSET=AL32UTF8
+#      - DB_GLOBAL_SCHEMA=TIGLOBAL
+#      - DB_ZONE_SCHEMA=TIZONE1
+#    volumes:
+#      - /opt/workspace/oracle_dpdump:/opt/oracle/admin/TIPLUS2/dpdump/
+#    networks:
+#       - default
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host=${TI_HOSTNAME}
+#networks:
+#  default:

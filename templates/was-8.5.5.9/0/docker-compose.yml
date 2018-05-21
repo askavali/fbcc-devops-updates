@@ -1,0 +1,107 @@
+version: "2"
+services:
+  
+  fbti-appserver:
+    image: wailord.finastra.io:444/tipat/was-8.5-standalone:latest
+    container_name: fbti-appserver
+    hostname: fbti-appserver
+    ports: 
+      - "2201:22"
+      - "9060:9060"
+      - "9080:9080"
+      - "9443:9443"
+      - "9081:9081"
+      - "9444:9444"
+      - "8879:8879"
+      - "5555:5555"
+      - "9809:9809"
+    environment:
+      - TI_HOSTNAME=${TI_HOSTNAME}
+      - DB_TYPE=oracle
+      - DB_PORT=1521
+      - DB_SID=TIPLUS2
+      - DB_HOSTNAME=${TI_HOSTNAME}
+      - DB_GLOBAL_SCHEMA=TIGLOBAL
+      - DB_ZONE_SCHEMA=TIZONE1
+      - MQ_VENDOR=ibmmq-7.5
+    volumes:
+      - /opt/workspace/shared:/workspace/shared
+      - /opt/workspace/fbti-logs/was-8.5-global:/opt/IBM/WebSphere/AppServer/profiles/AppSrv01/logs/global
+      - /opt/workspace/fbti-logs/was-8.5-zone:/opt/IBM/WebSphere/AppServer/profiles/AppSrv01/logs/zone1
+    extra_hosts:
+      - "elsd-1-1315:10.240.181.35"
+    links:
+      - "fbti-ibmmq:fbti-ibmmq"
+    depends_on:
+      - fbti-ibmmq
+    networks:
+       - default
+    restart: always
+    labels:
+      io.rancher.scheduler.affinity:host_label: host=${TI_HOSTNAME}
+
+  fbti-ibmmq:
+    image: wailord.finastra.io:444/fbti/generic:ibmmq7_5
+    container_name: fbti-ibmmq
+    hostname: fbti-ibmmq
+    ports: 
+      - "2203:22"
+      - "1414:1414"
+    environment:
+      - MQ_QMGR_NAME=TIMQMGR
+      - MQ_QUEUE_LIST=TI.GWY.IN,TI.GWY.OUT,TI.OUTGOING.REPLY,TI.MT798.IN,TI.MT798.OUT,TI.MT798.OUTGOING.REPLY,TI.SWIFT.IN,TI.SWIFT.OUT,TI.FAB.INCOMING,TI.FAB.OUTGOING,TILIQ.TI.OUTGOING,TILIQ.TI.OUTGOING.REPLY,TIRISK.TI.INCOMING,TIRISK.TI.OUTGOING,TIRISK.TI.OUTGOING.REPLY,TIPLUS2.BO.REPLY,TIPLUS2.BO.ENQUIRY,TIPLUS2.BO.TRANSFER,TIPLUS2.BO.REPLICATION,apollo.in,apollo.outgoing,apollo.to.tiplus.request
+    networks:
+       - default
+    restart: always
+    labels:
+      io.rancher.scheduler.affinity:host_label: host=${TI_HOSTNAME}
+
+  fbti-builder:
+    image: wailord.finastra.io:444/tipat/was-8.5-earbuilder:latest
+    container_name: fbti-builder
+    environment:
+      - TI_HOSTNAME=${TI_HOSTNAME}
+      - DB_TYPE=oracle
+      - DB_PORT=1521
+      - DB_SID=TIPLUS2
+      - DB_HOSTNAME=${TI_HOSTNAME}
+      - DB_GLOBAL_SCHEMA=TIGLOBAL
+      - DB_ZONE_SCHEMA=TIZONE1
+      - DB_MAINTAIN_OPTION=${DB_MAINTAIN_OPTION}
+      - APPSERVER_TYPE=was-8.5
+      - IS_DB_EXTERNAL_OPTION=true
+      - APPSERVER_OPTION=init
+      - MQ_VENDOR=ibmmq-7.5
+      - FBTI_BINARY=${FBTI_BINARY}
+    volumes:
+      - /opt/workspace/shared:/workspace/shared
+    links:
+      - "fbti-appserver:fbti-appserver"
+    extra_hosts:
+      - "elsd-1-1315:10.240.181.35"
+    labels:
+      io.rancher.scheduler.affinity:host_label: host=${TI_HOSTNAME}
+      io.rancher.container.start_once: true
+
+  fbti-oracle12c:
+    image: wailord.finastra.io:444/oracle/fbti:${DB_TAG}
+    container_name: fbti-oracle12c
+    hostname: fbti-oracle12c
+    ports:
+      - 1521:1521
+      - 5500:5500
+    environment:
+      - ORACLE_SID=TIPLUS2
+      - ORACLE_PWD=oracle
+      - ORACLE_CHARACTERSET=AL32UTF8
+      - DB_GLOBAL_SCHEMA=TIGLOBAL
+      - DB_ZONE_SCHEMA=TIZONE1
+    volumes:
+      - /opt/workspace/oracle_dpdump:/opt/oracle/admin/TIPLUS2/dpdump/
+    networks:
+       - default
+    labels:
+      io.rancher.scheduler.affinity:host_label: host=${TI_HOSTNAME}
+
+networks:
+  default:

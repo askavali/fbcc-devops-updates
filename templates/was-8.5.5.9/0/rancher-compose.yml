@@ -1,0 +1,43 @@
+version: '2'
+catalog:
+  name: ti-was-8.5-ibmmq-7.5-oracle12c
+  version: 1.0
+  description: |
+    ti-was-8.5-ibmmq-7.5-oracle12c
+  questions:
+
+    - variable: TI_HOSTNAME
+      label: TI_HOSTNAME
+      description: |
+        TI_HOSTNAME
+      required: true
+      default: whale.finastra.io
+      type: string
+
+    - variable: DB_MAINTAIN_OPTION
+      label: DB_MAINTAIN_OPTION
+      description: |
+        DB_MAINTAIN_OPTION
+      required: true
+      default: none
+      type: enum
+      options:
+        - none
+        - update
+        - init
+
+    - variable: DB_TAG
+      label: DB_TAG
+      description: |
+        DB_TAG
+      required: true
+      default: standalone-2.8.0
+      type: string
+
+    - variable: FBTI_BINARY
+      label: FBTI_BINARY
+      description: |
+        FBTI_BINARY
+      required: true
+      default: https://wailord.finastra.io/ti/FBTI-2.8.0.zip
+      type: string
