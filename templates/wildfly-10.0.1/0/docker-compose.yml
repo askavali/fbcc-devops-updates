@@ -5,16 +5,16 @@ services:
     container_name: fbcc-appserver
     hostname: fbcc-appserver
     ports: 
-      - "2201:22"
+#      - "2201:22"
       - "${FBCC_PORT}:8080"
-      - "8180:8180"
-      - "8280:8280"
-      - "8443:8443"
-      - "8543:8543"
-      - "8643:8643"
+#      - "8180:8180"
+#      - "8280:8280"
+#      - "8443:8443"
+#      - "8543:8543"
+#      - "8643:8643"
       - "9990:9990"
-      - "9999:9999"
-      - "4448:4448"
+#      - "9999:9999"
+#      - "4448:4448"
     environment:
       - FBCC_HOSTNAME=${FBCC_HOSTNAME}
       - FBCC_PORT=${FBCC_PORT}
