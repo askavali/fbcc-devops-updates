@@ -97,6 +97,14 @@ catalog:
       default: fbcc
       type: string
 
+
+    - variable: FBCC_BUILD_NUMBER
+      label: FBCC_BUILD_NUMBER
+      description: |
+        FBCC_BUILD_NUMBER
+      required: true
+      default: fbcc_build_number
+      type: string
 #    - variable: BIN_URL
 #      label: BIN_URL
 #      description: |

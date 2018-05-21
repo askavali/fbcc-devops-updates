@@ -4,7 +4,7 @@ services:
   fbcc-tomcat:
 #    depends_on: 
 #      - mq-mpm
-    image: registry.misys.global.ad/askavali/tomcat7:565
+    image: registry.misys.global.ad/askavali/tomcat7:${FBCC_BUILD_NUMBER}
     container_name: Tomcat7
     ports: 
       - "${FBCC_PORT}:8080"
@@ -24,6 +24,7 @@ services:
 #      - ELS_HCARE=${ELS_HCARE}
 #      - ELS_HVOL=${ELS_HVOL}
       - FBCC_PORT=${FBCC_PORT}
+      - FBCC_BUILD_NUMBER=${FBCC_BUILD_NUMBER}
 #      - BIN_URL=${BIN_URL}
 #      - MPM_HOST=${MPM_HOST}
 #    extra_hosts:
